@@ -26,6 +26,7 @@
                     <td>ID</td>
                     <td>Descrição</td>
                     <td>Marca</td>
+                    <td>Valor</td>
                     <td>Ações</td>
                 </tr>
 
@@ -42,7 +43,8 @@
                     </td>
 
                     <td>{{ $product->marca }}</td>
-                    <td></td>
+
+                    <td>R$ {{ $product->valor }}</td>
 
                 </tr>
                 @endforeach

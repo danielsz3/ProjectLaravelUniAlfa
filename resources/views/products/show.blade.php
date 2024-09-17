@@ -33,6 +33,9 @@
                         Marca:
                     </strong>{{ $product->marca }}</p>
                 <p><strong>
+                        Valor:
+                    </strong>R$ {{ $product->valor }}</p>
+                <p><strong>
                         Observação:
                     </strong>{{ $product->observacao }}</p>
                 <br>
