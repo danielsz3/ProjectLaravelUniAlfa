@@ -25,19 +25,20 @@ class ClientController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create() //mostra o formulário, não envia pro banco
     {
-        //
+        return view('clients.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request) //grava no banco de dados
     {
-        //
+        $dados = $request->except('_token');
+        Client::create($dados);
+        return redirect('/clients');
     }
-
     /**
      * Display the specified resource.
      */

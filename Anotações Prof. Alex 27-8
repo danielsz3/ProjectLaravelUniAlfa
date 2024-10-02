@@ -23,4 +23,29 @@ resources/view/'pasta'/arquivo index.blade.php
 
 arquivo blade não precisa abrir tag php, somente colocar duas chaves
 
-testeGitHub
+03/09
+Migrations Laravel
+R: Gerenciamento de tabelas
+Criação e atualização das tabelas do banco de dados.
+
+App e DB Local __ App e DB de Produção
+
+Em Laravel da para subir uma nova tabela para alterar a antiga
+
+Migrations cenários para aplicar ou não aplicar
+R: Se encaixa em novos projetos e não em produções e alterações antigas.
+Criar projetos com migrations já existentes da ruim (perda de tempo e pode ser que não rode muito bem e possível perda de dados).
+
+Model (classe)
+R: Representação para consultarmos a tabela entre as Controllers e inserção de dados. CRUD das tabelas.
+
+
+Cada Migration tem uma respectiva Model
+
+Comando para criar o banco conforme migrations:
+php artisan migrate
+
+php artisan make:model Client -m
+
+app.blade.php é o "template"
+(definir espaços e nomes, no caso deste projeto ficou titlle e o content)
