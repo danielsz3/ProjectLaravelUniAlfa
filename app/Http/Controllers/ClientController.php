@@ -57,7 +57,14 @@ class ClientController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        //Busca cliente no bd
+        $client = Client::find($id);
+
+        // dd($client);
+
+        return view('clients.edit', [
+            'client' => $client
+        ]);
     }
 
     /**
@@ -65,7 +72,16 @@ class ClientController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $client = Client::find($id);
+        $client->update(
+            [
+                'nome' => $request->nome,
+                'endereco' => $request->endereco,
+                'observacao' => $request->observacao
+            ]
+        );
+
+        return redirect('/clients');
     }
 
     /**
@@ -73,6 +89,12 @@ class ClientController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $client = Client::find($id);
+        $client->delete(
+            [
+                //para inativar o método mudaria para update e setaria como inativo
+            ]
+        );
+        return redirect('/clients');
     }
 }
