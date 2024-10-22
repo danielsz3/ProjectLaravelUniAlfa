@@ -27,7 +27,7 @@
                 <a class="btn btn-primary" href="{{ route('clients.edit', $client) }}">Editar</a>
 
                 <!-- Botão para abrir o modal -->
-                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-client-id="{{ $client->id }}">
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-client-id="{{ $client->id }}" data-client-name="{{ $client->nome }}">
                     Excluir
                 </button>
 
@@ -51,7 +51,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Deseja realmente excluir este cliente?
+                Deseja realmente excluir o cliente <strong id="client-name"></strong>?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -61,7 +61,6 @@
     </div>
 </div>
 
-<!-- Botão para adicionar novo cliente -->
 <a class="btn btn-success mt-3" href="{{ route('clients.create') }}">Novo Cliente</a>
 
 @endsection
@@ -70,14 +69,20 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         let clientId;
+        let clientName;
 
         var confirmDeleteModal = document.getElementById('confirmDeleteModal');
         var confirmDeleteBtn = document.getElementById('confirm-delete-btn');
+        var clientNameElement = document.getElementById('client-name');
 
         // Evento quando o modal é exibido
         confirmDeleteModal.addEventListener('show.bs.modal', function(event) {
             var button = event.relatedTarget; // Botão que disparou o modal
             clientId = button.getAttribute('data-client-id'); // Obtém o ID do cliente
+            clientName = button.getAttribute('data-client-name'); // Obtém o nome do cliente
+
+            // Atualiza o nome do cliente no modal
+            clientNameElement.textContent = clientName;
         });
 
         // Ação de excluir quando o botão de confirmação é clicado
