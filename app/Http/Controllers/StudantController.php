@@ -74,7 +74,8 @@ class StudantController extends Controller
                 'nome' => $request->nome,
                 'cpf' => $request->cpf,
                 'ra' => $request->ra,
-                'nascimento' => $request->nascimento
+                'nascimento' => $request->nascimento,
+                'sala_id' => $request->sala_id
             ]
         ));
         return redirect('/studants');

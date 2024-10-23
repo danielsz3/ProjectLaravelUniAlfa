@@ -13,6 +13,13 @@ class Studant extends Model
         'nome',
         'cpf',
         'ra',
-        'nascimento'
+        'nascimento',
+        'sala_id' // Adiciona o campo sala_id
     ];
+
+    // Relacionamento com a sala
+    public function sala()
+    {
+        return $this->belongsTo(Classroom::class);
+    }
 }

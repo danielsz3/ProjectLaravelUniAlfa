@@ -23,6 +23,9 @@
         <p><strong>
                 Data de Nascimento:
             </strong>{{ $studant->nascimento }}</p>
+        <p><strong>
+                Sala:
+            </strong>{{ $studant->sala_id }}</p>
         <br>
         <a class="btn btn-success" href="{{ route('studants.index') }} ">
             Voltar

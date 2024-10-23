@@ -12,6 +12,8 @@
             <td>CPF</td>
             <td>RA</td>
             <td>Data de Nascimento</td>
+            <td>Sala</td>
+
         </tr>
     </thead>
     <tbody>
@@ -29,6 +31,8 @@
             <td>{{ $studant->ra }}</td>
 
             <td>{{ $studant->nascimento }}</td>
+
+            <td>{{ $studant->sala_id }}</td>
 
             <td>
                 <a class="btn btn-primary" href="{{ route('studants.edit', $studant) }}">Editar</a>

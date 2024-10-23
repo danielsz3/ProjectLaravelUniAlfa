@@ -65,6 +65,21 @@
         id="nascimento"
         name="nascimento">
 
+    <div class="mb-3">
+        <label
+            for="sala_id"
+            class="form-label">
+            Sala
+        </label>
+
+        <input
+            type="text"
+            class="form-control"
+            id="sala_id"
+            name="sala_id">
+
+    </div>
+
     <button class="btn btn-success" type="submit">
         Enviar
     </button>

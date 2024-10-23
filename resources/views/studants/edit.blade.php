@@ -74,6 +74,22 @@
         placeholder="Digite sua data de nascimento">
     </input>
 
+    <div class="mb-3"></div>
+    <label
+        for="sala_id"
+        class="form-label">
+        Sala
+    </label>
+
+    <input
+        value="{{ $studant->sala_id }}"
+        type="text"
+        class="form-control"
+        id="sala_id"
+        name="sala_id"
+        placeholder="Digite a sala do aluno">
+    </input>
+
     <button class="btn btn-success" type="submit">
         Enviar
     </button>
