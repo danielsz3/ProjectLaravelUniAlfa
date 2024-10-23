@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StudantController;
 use App\Models\Client;
 
 Route::get('/', function () {
@@ -26,3 +27,11 @@ Route::delete('/clients/{id}', [ClientController::class, 'destroy'])->name('clie
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('products/{id}', [ProductController::class, 'show'])->name('products.show');
+
+Route::get('/studants', [StudantController::class, 'index'])->name('studants.index');
+Route::get('/studants/create', [StudantController::class, 'create'])->name('studants.create');
+Route::get('studants/{id}', [StudantController::class, 'show'])->name('studants.show');
+Route::get('/studants/{id}/edit', [StudantController::class, 'edit'])->name('studants.edit');
+Route::post('studants', [StudantController::class, 'store'])->name('studants.store');
+Route::put('/studants/{id}', [StudantController::class, 'update'])->name('studants.update');
+Route::delete('/studants/{id}', [StudantController::class, 'destroy'])->name('studants.destroy');
