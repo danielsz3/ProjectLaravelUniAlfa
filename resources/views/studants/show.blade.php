@@ -8,30 +8,19 @@
     </div>
 
     <div class="card-body">
-        <p><strong>
-                ID:
-            </strong>{{ $studant->id }}</p>
-        <p><strong>
-                Nome:
-            </strong>{{ $studant->nome }}</p>
-        <p><strong>
-                CPF:
-            </strong>{{ $studant->cpf }}</p>
-        <p><strong>
-                RA:
-            </strong>{{ $studant->ra }}</p>
-        <p><strong>
-                Data de Nascimento:
-            </strong>{{ $studant->nascimento }}</p>
-        <p><strong>
-                Sala:
-            </strong>{{ $studant->sala_id }}</p>
+
+        <p><strong>ID:</strong> {{ $studant->id }}</p>
+        <p><strong>Nome:</strong> {{ $studant->nome }}</p>
+        <p><strong>CPF:</strong> {{ $studant->cpf }}</p>
+        <p><strong>RA:</strong> {{ $studant->ra }}</p>
+        <p><strong>Data de Nascimento:</strong> {{ $studant->nascimento }}</p>
+        <p><strong>Sala:</strong> {{ $studant->classroom->nome ?? 'Não atribuída' }}</p>
+
         <br>
-        <a class="btn btn-success" href="{{ route('studants.index') }} ">
+        <a class="btn btn-success" href="{{ route('studants.index') }}">
             Voltar
         </a>
     </div>
-</div>
 </div>
 
 @endsection

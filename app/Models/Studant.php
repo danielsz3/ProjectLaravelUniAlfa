@@ -9,17 +9,11 @@ class Studant extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'nome',
-        'cpf',
-        'ra',
-        'nascimento',
-        'sala_id' // Adiciona o campo sala_id
-    ];
+    protected $fillable = ['nome', 'cpf', 'ra', 'nascimento', 'sala_id']; // Adiciona os campos que podem ser preenchidos
 
-    // Relacionamento com a sala
-    public function sala()
+    // Relacionamento com as salas (muitos para um)
+    public function classroom()
     {
-        return $this->belongsTo(Classroom::class);
+        return $this->belongsTo(Classroom::class, 'sala_id');
     }
 }

@@ -1,98 +1,68 @@
 @extends('app')
-@section('title', 'Novo Estudante')
+@section('title', 'Editar Estudante')
 @section('content')
 
 <h2>Editar Estudante</h2>
+
+<!-- Exibir mensagens de erro de validação -->
+@if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 
 <form action="{{ route('studants.update', $studant) }}" method="POST">
     @csrf
     @method('PUT')
 
     <div class="mb-3">
-        <label
-            for="nome"
-            class="form-label">
-            Nome
-        </label>
-
-        <input
-            value="{{ $studant->nome }}"
-            type="text"
-            class="form-control"
-            id="nome"
-            name="nome"
-            placeholder="Digite seu Nome">
+        <label for="nome" class="form-label">Nome</label>
+        <input value="{{ $studant->nome }}" type="text" class="form-control" id="nome" name="nome" placeholder="Digite seu Nome">
     </div>
 
     <div class="mb-3">
-        <label
-            for="cpf"
-            class="form-label">
-            CPF
-        </label>
+        <label for="cpf" class="form-label cpf-mask">CPF</label>
 
         <input
-            value="{{ $studant->cpf }}"
             type="text"
-            class="form-control"
+            class="form-control cpf-mask"
             id="cpf"
             name="cpf"
-            placeholder="Digite seu CPF">
+            placeholder="Digite seu CPF"
+            value="{{ old('cpf') }}"
+            required>
+
     </div>
 
     <div class="mb-3">
-        <label
-            for="ra"
-            class="form-label">
-            Observação
-        </label>
-
-        <input
-            value="{{ $studant->ra }}"
-            type="text"
-            class="form-control"
-            rows="3"
-            id="ra"
-            name="ra"
-            placeholder="Digite seu ra">
-        </input>
+        <label for="ra" class="form-label">RA</label>
+        <input value="{{ $studant->ra }}" type="text" class="form-control" id="ra" name="ra" placeholder="Digite seu RA">
     </div>
 
-    <div class="mb-3"></div>
-    <label
-        for="nascimento"
-        class="form-label">
-        Data de Nascimento
-    </label>
+    <div class="mb-3">
+        <label for="nascimento" class="form-label">Data de Nascimento</label>
+        <input value="{{ $studant->nascimento }}" type="text" class="form-control" id="nascimento" name="nascimento" placeholder="Digite sua data de nascimento">
+    </div>
 
-    <input
-        value="{{ $studant->nascimento }}"
-        type="text"
-        class="form-control"
-        id="nascimento"
-        name="nascimento"
-        placeholder="Digite sua data de nascimento">
-    </input>
+    <div class="mb-3">
+        <label for="sala_id" class="form-label">Sala</label>
+        <select class="form-control" id="sala_id" name="sala_id">
+            <option value="">Selecione uma sala</option>
+            @foreach($salas as $sala)
+            <option value="{{ $sala->id }}" {{ $studant->sala_id == $sala->id ? 'selected' : '' }}>
+                {{ $sala->nome }}
+            </option>
+            @endforeach
+        </select>
+    </div>
 
-    <div class="mb-3"></div>
-    <label
-        for="sala_id"
-        class="form-label">
-        Sala
-    </label>
+    <a class="btn btn-success" href="{{ route('studants.index') }}"> Voltar </a>
 
-    <input
-        value="{{ $studant->sala_id }}"
-        type="text"
-        class="form-control"
-        id="sala_id"
-        name="sala_id"
-        placeholder="Digite a sala do aluno">
-    </input>
-
-    <button class="btn btn-success" type="submit">
-        Enviar
-    </button>
+    <button class="btn btn-success" type="submit">Enviar</button>
 
 </form>
 

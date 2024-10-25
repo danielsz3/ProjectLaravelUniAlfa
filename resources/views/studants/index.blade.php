@@ -13,7 +13,7 @@
             <td>RA</td>
             <td>Data de Nascimento</td>
             <td>Sala</td>
-
+            <td>Ações</td>
         </tr>
     </thead>
     <tbody>
@@ -25,24 +25,17 @@
                     {{ $studant->nome }}
                 </a>
             </td>
-
             <td>{{ $studant->cpf }}</td>
-
             <td>{{ $studant->ra }}</td>
-
             <td>{{ $studant->nascimento }}</td>
-
-            <td>{{ $studant->sala_id }}</td>
-
+            <td>{{ $studant->classroom->nome ?? 'Não atribuída' }}</td>
             <td>
                 <a class="btn btn-primary" href="{{ route('studants.edit', $studant) }}">Editar</a>
 
-                <!-- Botão para abrir o modal -->
                 <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-studant-id="{{ $studant->id }}" data-studant-name="{{ $studant->nome }}">
                     Excluir
                 </button>
 
-                <!-- Formulário de exclusão (oculto) -->
                 <form id="delete-form-{{ $studant->id }}" action="{{ route('studants.destroy', $studant) }}" method="POST" style="display: none;">
                     @csrf
                     @method('DELETE')
@@ -53,7 +46,6 @@
     </tbody>
 </table>
 
-<!-- Modal de confirmação -->
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

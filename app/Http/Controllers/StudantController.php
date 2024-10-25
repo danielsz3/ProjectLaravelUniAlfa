@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classroom;
 use App\Models\Studant;
+use App\Rules\Cpf;
 use Illuminate\Http\Request;
 
 class StudantController extends Controller
@@ -25,8 +27,8 @@ class StudantController extends Controller
      */
     public function create()
     {
-
-        return view('studants.create');
+        $salas = Classroom::all();
+        return view('studants.create', compact('salas'));
     }
 
     /**
@@ -34,8 +36,22 @@ class StudantController extends Controller
      */
     public function store(Request $request)
     {
-        $dados = $request->except('_token');
-        Studant::create($dados);
+
+        $validatedData = $request->validate(
+            [
+                'nome' => 'required|string|max:100',
+                'cpf' => ['required', 'string', 'size:14', 'unique:studants,cpf', new Cpf()],
+                'ra' => 'required|integer',
+                'nascimento' => 'required|date',
+                'sala_id' => 'required|exists:classrooms,id',
+            ],
+            [
+                'cpf.size' => 'Por favor, verifique o número do CPF digitado.',
+                'cpf.required' => 'O campo CPF é obrigatório.',
+            ]
+        );
+
+        Studant::create($validatedData);
         return redirect('/studants');
     }
 
@@ -57,9 +73,11 @@ class StudantController extends Controller
     public function edit(string $id)
     {
         $studant = Studant::find($id);
+        $salas = Classroom::all(); // Recupera todas as salas
 
         return view('studants.edit', [
-            'studant' => $studant
+            'studant' => $studant,
+            'salas' => $salas, // Passa as salas para a view
         ]);
     }
 
@@ -68,18 +86,37 @@ class StudantController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // Recupera o estudante pelo ID
         $studant = Studant::find($id);
-        $studant->update($request->all(
+
+        // Valida os dados do request
+        $validatedData = $request->validate(
             [
-                'nome' => $request->nome,
-                'cpf' => $request->cpf,
-                'ra' => $request->ra,
-                'nascimento' => $request->nascimento,
-                'sala_id' => $request->sala_id
+                'nome' => 'required|string|max:100',
+                'cpf' => [
+                    'required',
+                    'string',
+                    'size:14',
+                    'unique:studants,cpf,' . $studant->id, // Ignora o CPF atual na validação de unicidade
+                    new Cpf(),
+                ],
+                'ra' => 'required|integer',
+                'nascimento' => 'required|date',
+                'sala_id' => 'required|exists:classrooms,id',
+            ],
+            [
+                'cpf.size' => 'Por favor, verifique o número do CPF digitado.',
+                'cpf.required' => 'O campo CPF é obrigatório.',
             ]
-        ));
+        );
+
+        // Atualiza os dados do estudante
+        $studant->update($validatedData);
+
+        // Redireciona para a lista de estudantes
         return redirect('/studants');
     }
+
 
     /**
      * Remove the specified resource from storage.
