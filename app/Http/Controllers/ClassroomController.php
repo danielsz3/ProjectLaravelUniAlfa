@@ -34,12 +34,9 @@ class ClassroomController extends Controller
      */
     public function store(Request $request)
     {
-        // Coleta os dados do request, exceto o _token
         $dados = $request->except('_token');
 
-        // Cria uma nova sala
         Classroom::create($dados);
-
         // Redireciona para a lista de salas
         return redirect('/classrooms');
     }

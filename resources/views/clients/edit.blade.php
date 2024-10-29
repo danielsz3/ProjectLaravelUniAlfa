@@ -4,7 +4,7 @@
 
 <h2>Editar Cliente</h2>
 
-<form action="{{ route('clients.update', $client) }}" method="POST">
+<form action="{{ route('clients.update', $client) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -56,6 +56,30 @@
             placeholder="Digite seu observacao">
         {{ $client->observacao }}
         </textarea>
+    </div>
+
+    <div class="mb-3">
+
+        <label
+            for="avatar"
+            class="form-label">
+            Avatar
+        </label>
+
+        <input
+            type="file"
+            class="form-control"
+            id="avatar"
+            nome="avatar"
+            accept="image/*">
+    </div>
+
+    @if ($client->avatar)
+    <div class="mb-3">
+        <img
+            src="{{ asset('storage/' . $client->avatar) }}"
+            alt="Avatar do cliente"
+            class="img-thumbnail" width="150">
     </div>
 
     <button class="btn btn-success" type="submit">

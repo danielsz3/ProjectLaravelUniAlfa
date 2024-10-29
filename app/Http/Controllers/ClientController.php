@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ClientController extends Controller
 {
@@ -36,6 +37,12 @@ class ClientController extends Controller
     public function store(Request $request) //grava no banco de dados
     {
         $dados = $request->except('_token');
+
+        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $avatar['avatar'] = $avatarPath;
+        }
+
         Client::create($dados);
         return redirect('/clients');
     }
@@ -73,6 +80,18 @@ class ClientController extends Controller
     public function update(Request $request, string $id)
     {
         $client = Client::find($id);
+
+        $dados = $request->only('nome', 'endereco', 'observacao');
+
+        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+            if ($client->avatar) {
+                Storage::disk('public')->delete($client->avatar);
+            }
+
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $dados['avatar'] = $avatarPath;
+        }
+
         $client->update(
             [
                 'nome' => $request->nome,
@@ -90,11 +109,13 @@ class ClientController extends Controller
     public function destroy(string $id)
     {
         $client = Client::find($id);
-        $client->delete(
-            [
-                //para inativar o método mudaria para update e setaria como inativo
-            ]
-        );
+
+        if ($client->avatar) {
+            Storage::disk('public')->delete($client->avatar);
+        }
+
+        $client->delete();
+
         return redirect('/clients');
     }
 }
