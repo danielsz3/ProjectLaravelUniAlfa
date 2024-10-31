@@ -58,12 +58,33 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger" id="confirm-delete-btn">Excluir</button>
+                <button type="button" class="btn btn-danger" id="confirm-delete-btn" data-studant-id="">Excluir</button>
             </div>
         </div>
     </div>
 </div>
 
 <a class="btn btn-success mt-3" href="{{ route('studants.create') }}">Novo Estudante</a>
+
+@section('scripts')
+<script>
+    // Quando o modal for mostrado, preencha o nome do estudante
+    $('#confirmDeleteModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget); // Botão que acionou o modal
+        var studantId = button.data('studant-id'); // Extraindo o ID do estudante
+        var studantName = button.data('studant-name'); // Extraindo o nome do estudante
+
+        var modal = $(this);
+        modal.find('#studant-name').text(studantName); // Atualizando o nome do estudante no modal
+        modal.find('#confirm-delete-btn').data('studant-id', studantId); // Atualizando o ID no botão de confirmação
+    });
+
+    // Ação de exclusão quando o botão de confirmação for clicado
+    $('#confirm-delete-btn').on('click', function() {
+        var studantId = $(this).data('studant-id'); // Obtendo o ID do estudante
+        $('#delete-form-' + studantId).submit(); // Submetendo o formulário correspondente
+    });
+</script>
+@endsection
 
 @endsection

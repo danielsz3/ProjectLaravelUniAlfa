@@ -87,7 +87,8 @@
                 <button
                     type="button"
                     class="btn btn-danger"
-                    id="confirm-delete-btn">
+                    id="confirm-delete-btn"
+                    data-classroom-id="">
                     Excluir
                 </button>
             </div>
@@ -100,5 +101,26 @@
     href="{{ route('classrooms.create') }}">
     Nova Sala
 </a>
+
+@section('scripts')
+<script>
+    // Quando o modal for mostrado, preencha o nome da sala
+    $('#confirmDeleteModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget); // Botão que acionou o modal
+        var classroomId = button.data('classroom-id'); // Extraindo o ID da sala
+        var classroomName = button.data('classroom-name'); // Extraindo o nome da sala
+
+        var modal = $(this);
+        modal.find('#classroom-name').text(classroomName); // Atualizando o nome da sala no modal
+        modal.find('#confirm-delete-btn').data('classroom-id', classroomId); // Atualizando o ID no botão de confirmação
+    });
+
+    // Ação de exclusão quando o botão de confirmação for clicado
+    $('#confirm-delete-btn').on('click', function() {
+        var classroomId = $(this).data('classroom-id'); // Obtendo o ID da sala
+        $('#delete-form-' + classroomId).submit(); // Submetendo o formulário correspondente
+    });
+</script>
+@endsection
 
 @endsection
