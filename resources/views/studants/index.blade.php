@@ -19,6 +19,7 @@
     <tbody>
         @foreach ($studants as $studant)
         <tr>
+
             <td>{{ $studant->id }}</td>
             <td>
                 <a href="{{ route('studants.show', $studant) }}">
@@ -68,21 +69,22 @@
 
 @section('scripts')
 <script>
-    // Quando o modal for mostrado, preencha o nome do estudante
     $('#confirmDeleteModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget); // Botão que acionou o modal
-        var studantId = button.data('studant-id'); // Extraindo o ID do estudante
-        var studantName = button.data('studant-name'); // Extraindo o nome do estudante
+        const {
+            relatedTarget
+        } = event;
+        const {
+            studantId,
+            studantName
+        } = $(relatedTarget).data();
 
-        var modal = $(this);
-        modal.find('#studant-name').text(studantName); // Atualizando o nome do estudante no modal
-        modal.find('#confirm-delete-btn').data('studant-id', studantId); // Atualizando o ID no botão de confirmação
+        $(this).find('#studant-name').text(studantName);
+        $(this).find('#confirm-delete-btn').data('studant-id', studantId);
     });
 
-    // Ação de exclusão quando o botão de confirmação for clicado
     $('#confirm-delete-btn').on('click', function() {
-        var studantId = $(this).data('studant-id'); // Obtendo o ID do estudante
-        $('#delete-form-' + studantId).submit(); // Submetendo o formulário correspondente
+        const studantId = $(this).data('studant-id');
+        $(`#delete-form-${studantId}`).submit();
     });
 </script>
 @endsection

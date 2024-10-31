@@ -104,21 +104,19 @@
 
 @section('scripts')
 <script>
-    // Quando o modal for mostrado, preencha o nome da sala
     $('#confirmDeleteModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget); // Botão que acionou o modal
-        var classroomId = button.data('classroom-id'); // Extraindo o ID da sala
-        var classroomName = button.data('classroom-name'); // Extraindo o nome da sala
+        const {
+            classroomId,
+            classroomName
+        } = $(event.relatedTarget).data();
 
-        var modal = $(this);
-        modal.find('#classroom-name').text(classroomName); // Atualizando o nome da sala no modal
-        modal.find('#confirm-delete-btn').data('classroom-id', classroomId); // Atualizando o ID no botão de confirmação
+        $(this).find('#classroom-name').text(classroomName);
+        $(this).find('#confirm-delete-btn').data('classroom-id', classroomId);
     });
 
-    // Ação de exclusão quando o botão de confirmação for clicado
     $('#confirm-delete-btn').on('click', function() {
-        var classroomId = $(this).data('classroom-id'); // Obtendo o ID da sala
-        $('#delete-form-' + classroomId).submit(); // Submetendo o formulário correspondente
+        const classroomId = $(this).data('classroom-id');
+        $(`#delete-form-${classroomId}`).submit();
     });
 </script>
 @endsection
