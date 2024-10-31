@@ -37,21 +37,24 @@ class StudantController extends Controller
     public function store(Request $request)
     {
 
-        $validatedData = $request->validate(
-            [
-                'nome' => 'required|string|max:100',
-                'cpf' => ['required', 'string', 'size:14', 'unique:studants,cpf', new Cpf()],
-                'ra' => 'required|integer',
-                'nascimento' => 'required|date',
-                'sala_id' => 'required|exists:classrooms,id',
-            ],
-            [
-                'cpf.size' => 'Por favor, verifique o número do CPF digitado.',
-                'cpf.required' => 'O campo CPF é obrigatório.',
-            ]
-        );
+        $dados = $request->except('_token');
 
-        Studant::create($validatedData);
+        // $validatedData = $request->validate(
+        //     [
+        //         'nome' => 'required|string|max:100',
+        //         'cpf' => ['required', 'string', 'size:14', 'unique:studants,cpf', new Cpf()],
+        //         'ra' => 'required|integer',
+        //         'nascimento' => 'required|date',
+        //         'sala_id' => 'required|exists:classrooms,id',
+        //     ],
+        //     [
+        //         'cpf.size' => 'Por favor, verifique o número do CPF digitado.',
+        //         'cpf.required' => 'O campo CPF é obrigatório.',
+        //     ]
+        // );
+
+        // Studant::create($validatedData);
+        Studant::create($dados);
         return redirect('/studants');
     }
 
@@ -90,28 +93,30 @@ class StudantController extends Controller
         $studant = Studant::find($id);
 
         // Valida os dados do request
-        $validatedData = $request->validate(
-            [
-                'nome' => 'required|string|max:100',
-                'cpf' => [
-                    'required',
-                    'string',
-                    'size:14',
-                    'unique:studants,cpf,' . $studant->id, // Ignora o CPF atual na validação de unicidade
-                    new Cpf(),
-                ],
-                'ra' => 'required|integer',
-                'nascimento' => 'required|date',
-                'sala_id' => 'required|exists:classrooms,id',
-            ],
-            [
-                'cpf.size' => 'Por favor, verifique o número do CPF digitado.',
-                'cpf.required' => 'O campo CPF é obrigatório.',
-            ]
-        );
+        // $validatedData = $request->validate(
+        //     [
+        //         'nome' => 'required|string|max:100',
+        //         'cpf' => [
+        //             'required',
+        //             'string',
+        //             'size:14',
+        //             'unique:studants,cpf,' . $studant->id, // Ignora o CPF atual na validação de unicidade
+        //             new Cpf(),
+        //         ],
+        //         'ra' => 'required|integer',
+        //         'nascimento' => 'required|date',
+        //         'sala_id' => 'required|exists:classrooms,id',
+        //     ],
+        //     [
+        //         'cpf.size' => 'Por favor, verifique o número do CPF digitado.',
+        //         'cpf.required' => 'O campo CPF é obrigatório.',
+        //     ]
+        // );
 
         // Atualiza os dados do estudante
-        $studant->update($validatedData);
+        // $studant->update($validatedData);
+
+        $studant->update($request->all());
 
         // Redireciona para a lista de estudantes
         return redirect('/studants');

@@ -16,7 +16,7 @@
 @endif
 
 
-<form action="{{ route('clasrooms.store') }}" method="POST">
+<form action="{{ route('classrooms.store') }}" method="POST">
     @csrf
 
     <div class="mb-3">
@@ -39,11 +39,12 @@
 
     </div>
 
-    </div>
-
-    <a class="btn btn-success" href="{{ route('studants.index') }}"> Voltar </a>
+    <a class="btn btn-success" href="{{ route('classrooms.index') }}"> Voltar </a>
 
     <button class="btn btn-success" type="submit">Enviar</button>
+
+    </div>
+
 </form>
 
 @endsection
