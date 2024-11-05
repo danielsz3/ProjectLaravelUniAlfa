@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StudantController;
 use App\Models\Classroom;
@@ -45,3 +46,7 @@ Route::get('/classrooms/{id}/edit', [ClassroomController::class, 'edit'])->name(
 Route::post('classrooms', [ClassroomController::class, 'store'])->name('classrooms.store');
 Route::put('/classrooms/{id}', [ClassroomController::class, 'update'])->name('classrooms.update');
 Route::delete('/classrooms/{id}', [ClassroomController::class, 'destroy'])->name('classrooms.destroy');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

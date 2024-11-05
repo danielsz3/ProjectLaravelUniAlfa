@@ -49,3 +49,5 @@ php artisan make:model Client -m
 
 app.blade.php é o "template"
 (definir espaços e nomes, no caso deste projeto ficou titlle e o content)
+
+comando para link simbólico php artisan storage:link
