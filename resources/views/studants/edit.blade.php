@@ -4,7 +4,6 @@
 
 <h2>Editar Estudante</h2>
 
-<!-- Exibir mensagens de erro de validação -->
 @if ($errors->any())
 <div class="alert alert-danger">
     <ul>
@@ -33,7 +32,7 @@
             id="cpf"
             name="cpf"
             placeholder="Digite seu CPF"
-            value="{{ old('cpf') }}"
+            value="{{ $studant->cpf }}"
             required>
 
     </div>
@@ -45,7 +44,12 @@
 
     <div class="mb-3">
         <label for="nascimento" class="form-label">Data de Nascimento</label>
-        <input value="{{ $studant->nascimento }}" type="text" class="form-control" id="nascimento" name="nascimento" placeholder="Digite sua data de nascimento">
+        <input
+            value="{{ $studant->nascimento }}"
+            type="text" class="form-control"
+            id="nascimento"
+            name="nascimento"
+            placeholder="Digite sua data de nascimento">
     </div>
 
     <div class="mb-3">

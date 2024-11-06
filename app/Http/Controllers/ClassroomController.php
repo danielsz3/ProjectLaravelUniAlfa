@@ -12,9 +12,7 @@ class ClassroomController extends Controller
      */
     public function index()
     {
-        // Busca todas as salas
         $classrooms = Classroom::get();
-
         return view('classrooms.index', [
             'classrooms' => $classrooms
         ]);
@@ -25,7 +23,6 @@ class ClassroomController extends Controller
      */
     public function create()
     {
-        // Retorna a view de criação de sala
         return view('classrooms.create');
     }
 
@@ -37,7 +34,6 @@ class ClassroomController extends Controller
         $dados = $request->except('_token');
 
         Classroom::create($dados);
-        // Redireciona para a lista de salas
         return redirect('/classrooms');
     }
 
@@ -46,9 +42,7 @@ class ClassroomController extends Controller
      */
     public function show(string $id)
     {
-        // Busca a sala pelo ID
         $classroom = Classroom::find($id);
-
         return view('classrooms.show', [
             'classroom' => $classroom
         ]);
@@ -59,9 +53,7 @@ class ClassroomController extends Controller
      */
     public function edit(string $id)
     {
-        // Busca a sala pelo ID
         $classroom = Classroom::find($id);
-
         return view('classrooms.edit', [
             'classroom' => $classroom
         ]);
@@ -72,13 +64,8 @@ class ClassroomController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // Busca a sala pelo ID
         $classroom = Classroom::find($id);
-
-        // Atualiza a sala com os dados do request
         $classroom->update($request->all());
-
-        // Redireciona para a lista de salas
         return redirect('/classrooms');
     }
 
@@ -87,13 +74,8 @@ class ClassroomController extends Controller
      */
     public function destroy(string $id)
     {
-        // Busca a sala pelo ID
         $classroom = Classroom::find($id);
-
-        // Remove a sala do banco de dados
         $classroom->delete();
-
-        // Redireciona para a lista de salas
         return redirect('/classrooms');
     }
 }

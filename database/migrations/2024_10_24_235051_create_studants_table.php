@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('cpf', 14);
             $table->string('ra', 8);
             $table->date('nascimento');
-            $table->foreignId('sala_id')->constrained('classrooms'); // Chave estrangeira para salas
+            $table->foreignId('sala_id')->constrained('classrooms');
             $table->timestamps();
         });
     }

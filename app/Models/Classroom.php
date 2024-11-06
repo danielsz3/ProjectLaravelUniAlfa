@@ -9,9 +9,8 @@ class Classroom extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome']; // Adiciona os campos que podem ser preenchidos
+    protected $fillable = ['nome'];
 
-    // Relacionamento com os estudantes (um para muitos)
     public function studants()
     {
         return $this->hasMany(Studant::class, 'sala_id');
