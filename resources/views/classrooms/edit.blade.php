@@ -36,7 +36,7 @@
 
     </div>
 
-    <a class="btn btn-success" href="{{ route('studants.index') }}"> Voltar </a>
+    <a class="btn btn-success" href="{{ route('classrooms.index') }}"> Voltar </a>
 
     <button class="btn btn-success" type="submit">Enviar</button>
 
